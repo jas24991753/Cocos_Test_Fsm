@@ -34,12 +34,11 @@ var Controller = cc.Class({
         // cc.log("fsm.transitions()  :",this.transitions());
         // cc.log("fsm.allTransitions()  :",this.allTransitions());
         // cc.log("fsm.allStates()  :",this.allStates());
-        
+        //cc.log(this.stateName);
+        // cc.log("現在狀態",this.is());
     },
 
-    onCloseLight: function(){
-        // this.resolve();
-    }
+   
 
 });
 
@@ -50,16 +49,18 @@ StateMachine.factory(Controller, {
         { name: 'sleep', from: 'idle', to: 'sleeping' },
         { name: 'wake', from: 'sleeping', to: 'idle' }
     ],
-    data: function(cat){
+    data: function(name){
         return{
-            cat:cat
+            stateName:name
         }
     },
 
     methods: {
-        onBeforeSleep: function () {
-            // return false;
+        
+        onAfterSleep:function(){
+            cc.log(11111)
         },
+       
         onLeaveIdle: function () {
             // return new Promise(function(resolve,reject){
             //     cc.log('gotoSleep');
@@ -68,9 +69,9 @@ StateMachine.factory(Controller, {
 
         },
         onEnterIdle:function(){
-            return new Promise(function(resolve,reject){
-                 $('#idle').fadeIn('fast', resolve)
-            })
+            // return new Promise(function(resolve,reject){
+            //      $('#idle').fadeIn('fast', resolve)
+            // })
             //     setTimeout(function () {
             //         resolve();
             //     }.bind(this), 2000);
@@ -83,48 +84,46 @@ StateMachine.factory(Controller, {
             // return new Promise(function(resolve,reject){
             //     $('#sleeping').fadeIn('fast', resolve)
             // })
-            return new Promise(function(resolve,reject){
-                 $('#sleeping').fadeIn('fast', resolve)
-            })
+            // return new Promise(function(resolve,reject){
+            //      $('#sleeping').fadeIn('fast', resolve)
+            // })
         },
-
-
         onSleep: function () {
- 
+                cc.log(11111)
 
                 this.spriteCurrentState.spriteFrame = this.sfSleep;
                 // setTimeout(function () {
                 //     this.wake();
                 // }.bind(this), 2000);
            
-                cc.log("fsm.allStates()  :",this.allStates());
+                // cc.log("fsm.allStates()  :",this.allStates());
             
                 // return new Promise(function(resolve,reject){
                 // //  $('#idle').fadeIn('fast', resolve)
                 //     setTimeout(function () {
                 //         resolve();
                 //     }.bind(this), 2000);
-                // })
-            
-           
+                // })         
             
         },
         onWake: function () {
             this.spriteCurrentState.spriteFrame = this.sfIdle;
             
-            cc.log("fsm.allStates()  :",this.allStates());
+            // cc.log("fsm.allStates()  :",this.allStates());
             
-            cc.log('data : ',this.cat);
+            // cc.log('data : ',this.cat);
         },
 
+
        
-        onTransition : function(lifecycle,arg1){
-            cc.log('轉換');
-            cc.log('lifecycle.transition',lifecycle.transition);
-            cc.log('lifecycle.from',lifecycle.from);
-            cc.log('lifecycle.to',lifecycle.to);
-            cc.log("fsm.allTransitions()  :",this.allTransitions());
+        onTransition : function(lifecycle,arg1,arg2){
+            // cc.log('轉換');
+            // cc.log('lifecycle.transition',lifecycle.transition);
+            // cc.log('lifecycle.from',lifecycle.from);
+            // cc.log('lifecycle.to',lifecycle.to);
+            // cc.log("fsm.allTransitions()  :",this.allTransitions());
             // cc.log(arg1);
+            // cc.log(arg2);
         }
 
     }
